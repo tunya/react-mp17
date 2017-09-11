@@ -1,22 +1,15 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ClearWebpackPlugin = require('clean-webpack-plugin');
 
 const BUILD_DIR  = path.join(__dirname, 'app/build');
-const CLIENT_DIR = path.join(__dirname, 'app/src');
+const SOURCE_DIR = path.join(__dirname, 'app/src');
 
 module.exports = {
-    context: CLIENT_DIR,
+    context: SOURCE_DIR,
 
-    entry: {
-        index: [
-            './index',
-            'react-hot-loader/patch',
-            'webpack-dev-server/client?http://localhost:3000'
-        ],
-        style: './style.sass'
-    },
+    entry: './index',
 
     output: {
         path:     BUILD_DIR,
@@ -29,7 +22,6 @@ module.exports = {
 
     devServer: {
         historyApiFallback: true,
-        hot: true,
         port: 3000
     },
 
@@ -50,8 +42,7 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin(),
+        new ClearWebpackPlugin([BUILD_DIR], {verbose: true}),
         new HtmlWebpackPlugin({
             title: 'Homework 1',
             hash: true,

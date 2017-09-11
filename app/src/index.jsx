@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './style.sass';
 
 const accomplished = [
     'Set up the dev environment for React Mentoring Program',
@@ -7,10 +8,10 @@ const accomplished = [
     'Added dependencies needed for furhter work'
 ];
 
-var element1 = <main>
+let element1 = <main>
     <h1>Homework 1</h1>
     <ul>
-        {accomplished.map((elem) => <li>{elem}</li>)}
+        {accomplished.map(elem => <li>{elem}</li>)}
     </ul>
 </main>;
 
