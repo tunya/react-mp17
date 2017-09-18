@@ -1,19 +1,18 @@
+/* global document */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style.sass';
+import Header from './components/Header';
+import MovieList from './components/MovieList';
+import Footer from './components/Footer';
+import styles from './styles/index.scss';
 
-const accomplished = [
-    'Set up the dev environment for React Mentoring Program',
-    'Implemented simple React + Webpack app',
-    'Added dependencies needed for furhter work'
-];
+const app = (
+  <section className={styles.app_wrap}>
+    <Header />
+    <MovieList />
+    <Footer />
+  </section>
+);
 
-let element1 = <main>
-    <h1>Homework 1</h1>
-    <ul>
-        {accomplished.map(elem => <li>{elem}</li>)}
-    </ul>
-</main>;
-
-ReactDOM.render(element1, document.getElementById('container'));
+ReactDOM.render(app, document.getElementById('container'));
 

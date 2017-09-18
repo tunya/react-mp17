@@ -1,0 +1,14 @@
+@import "variables";
+.header {
+  background: url('./../img/bg.jpg');
+
+  h1 {
+    color: $title-color;
+  }
+}
+
+.header_content {
+  padding: 20px 6%;
+  min-height: 220px;
+  background: rgba(0, 0, 0, 0.5);
+}
