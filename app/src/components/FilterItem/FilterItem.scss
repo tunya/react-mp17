@@ -1,4 +1,4 @@
-@import "variables";
+@import "../../shared/variables";
 
 .filter_item {
   display: inline-block;
@@ -19,6 +19,4 @@
   &.filter_item__selected {
     background: $title-color;
   }
-
-
 }

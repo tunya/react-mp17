@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './../styles/Footer.scss';
+import styles from './Footer.scss';
 
 function Footer(props) {
   return (

@@ -1,0 +1,37 @@
+@import "../../shared/variables";
+.header {
+  background: url('./img/bg.jpg');
+
+  h1 {
+    margin: 20px 0;
+    color: $title-color;
+  }
+}
+
+.header_content {
+  padding: 20px 6%;
+  min-height: 220px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.to_search {
+  position: absolute;
+  top: 40px;
+  right: 6%;
+  background: $header-font-color;
+  border: none;
+  font-size: 10pt;
+  padding: 5px 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #F2475A;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all .3s ease;
+  -webkit-font-smoothing: antialiased;
+
+  &:hover {
+    background: #fff;
+    color: $title-color;
+  }
+}
