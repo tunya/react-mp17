@@ -1,24 +1,19 @@
 import React from 'react';
-import _ from 'lodash';
 import Header from './../Header/Header';
 import StatusBar from '../StatusBar/StatusBar';
-import MovieList from './../MovieList/MovieList';
+import MovieListContainer from './../MovieListContainer/MovieListContainer';
 import Footer from './../Footer/Footer';
 import styles from './App.scss';
 import response from '../../../data/response.json';
 
 export default class App extends React.Component {
-  static sortListBy(list, criteria) {
-    return _.reverse(_.sortBy(list, criteria));
-  }
-
   constructor() {
     super();
     this.state = {
       movies: response,
       movieSelected: {},
       movieSelectedId: null,
-      sortOrder: 'release_year',
+      sortBy: 'release_year',
       query: '',
       searchBy: 'title',
     };
@@ -26,62 +21,46 @@ export default class App extends React.Component {
     this.title = 'netflixroulette';
 
     // Bind context to the callbacks
-    this.setSearchBy = this.setSearchBy.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSortBy = this.handleSortBy.bind(this);
     this.selectMovie = this.selectMovie.bind(this);
     this.restoreSearch = this.restoreSearch.bind(this);
-  }
-
-  setSearchBy(e) {
-    this.setState({
-      searchBy: e.target.value,
-    });
+    this.updateCount = this.updateCount.bind(this);
   }
 
   handleSubmit(e) {
+    const { target: { query: { value: query } }, target: { searchBy: { value: searchBy } } } = e;
     e.preventDefault();
-    let movies = []; // this will be replaced with the result of API call
-    // TODO: write an API request, put the following in a callback
-    if (movies.length > 0) {
-      movies = App.sortListBy(movies, this.state.sortOrder);
-    }
     this.setState({
-      query: e.target.query.value,
-      movies,
+      query,
+      searchBy,
     });
     return false;
   }
 
   handleSortBy({ target: { value } }) {
-    const list = App.sortListBy(this.state.movies, value);
     this.setState({
-      movies: list,
-      sortOrder: value,
+      sortBy: value,
     });
   }
 
   selectMovie(item) {
-    let movies = [];
-    // TODO: write an API request to fetch movies by director, put the following in a callback
-    movies = response; // this will be replaced with the result of API call
-    movies = App.sortListBy(movies, this.state.sortOrder);
     this.setState({
       movieSelected: item,
       movieSelectedId: item.show_id,
-      movies,
     });
   }
 
   restoreSearch() {
-    let movies = [];
-    // TODO: write an API request to fetch movies by search query, put the following in a callback
-    movies = response; // this will be replaced with the result of API call
-    movies = App.sortListBy(movies, this.state.sortOrder);
     this.setState({
       movieSelected: {},
       movieSelectedId: null,
-      movies,
+    });
+  }
+
+  updateCount(count) {
+    this.setState({
+      count,
     });
   }
 
@@ -92,21 +71,22 @@ export default class App extends React.Component {
           title={this.title}
           movieSelected={this.state.movieSelected}
           query={this.state.query}
-          searchBy={this.state.searchBy}
-          setSearchBy={this.setSearchBy}
           handleSubmit={this.handleSubmit}
           restoreSearch={this.restoreSearch}
         />
         <StatusBar
-          count={this.state.movies.length}
+          count={this.state.count}
           applySort={this.handleSortBy}
-          sortBy={this.state.sortOrder}
+          sortBy={this.state.sortBy}
           movieSelected={this.state.movieSelected}
         />
-        <MovieList
-          movies={this.state.movies}
+        <MovieListContainer
+          query={this.state.query}
+          searchBy={this.state.searchBy}
+          sortBy={this.state.sortBy}
           movieSelectedId={this.state.movieSelectedId}
           selectMovie={this.selectMovie}
+          updateCount={this.updateCount}
         />
         <Footer />
       </section>

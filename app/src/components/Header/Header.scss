@@ -1,20 +1,20 @@
 @import "../../shared/variables";
 .header {
   background: url('./img/bg.jpg');
-
-  h1 {
-    margin: 20px 0;
-    color: $title-color;
-  }
 }
 
-.header_content {
+.title {
+  margin: 20px 0;
+  color: $title-color;
+}
+
+.content {
   padding: 20px 6%;
   min-height: 220px;
   background: rgba(0, 0, 0, 0.7);
 }
 
-.to_search {
+.search {
   position: absolute;
   top: 40px;
   right: 6%;
@@ -31,7 +31,7 @@
   -webkit-font-smoothing: antialiased;
 
   &:hover {
-    background: #fff;
+    background: #FFF;
     color: $title-color;
   }
 }

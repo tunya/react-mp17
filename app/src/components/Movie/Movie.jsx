@@ -14,24 +14,34 @@ export default class Movie extends React.Component {
   }
 
   renderSelected() {
-    const item = this.props.item;
+    const {
+      poster,
+      show_title: showTitle,
+      rating,
+      category,
+      release_year: releaseYear,
+      runtime,
+      summary,
+      director,
+      show_cast: showCast,
+    } = this.props.item;
     return (
       <main className={styles.hero}>
-        <img src={item.poster} alt={item.show_title} />
+        <img className={styles.poster} src={poster} alt={showTitle} />
         <section>
-          <h2>{item.show_title}</h2>
-          <span className={styles.hero_rate}>{item.rating}</span>
-          <p>{item.category}</p>
+          <h2 className={styles.title}>{showTitle}</h2>
+          <span className={styles.rate}>{rating}</span>
+          <p>{category}</p>
           <p>
-            <span className={styles.hero_time}>{item.release_year}</span>
-            <span className={styles.hero_time}>{item.runtime}</span>
+            <span className={styles.time}>{releaseYear}</span>
+            <span className={styles.time}>{runtime}</span>
           </p>
-          <p className={styles.hero_summary}>{item.summary}</p>
-          <p className={styles.hero_crew}>
-            Director: {item.director}
+          <p className={styles.summary}>{summary}</p>
+          <p className={styles.crew}>
+            Director: {director}
           </p>
-          <p className={styles.hero_crew}>
-            Cast: {item.show_cast}
+          <p className={styles.crew}>
+            Cast: {showCast}
           </p>
         </section>
       </main>
@@ -39,15 +49,15 @@ export default class Movie extends React.Component {
   }
 
   renderListed() {
-    const item = this.props.item;
+    const { poster, show_title: showTitle, category, release_year: releaseYear } = this.props.item;
     return (
-      <li className={styles.mlist__item}>
-        <a href="#placeholder-for-future-routing" onClick={this.selectThis}>
-          <img src={item.poster} alt={item.show_title} />
-          <span className={styles.mlist__item_year}>{item.release_year}</span>
+      <li className={styles.item}>
+        <a className={styles.link} href="#placeholder-for-future-routing" onClick={this.selectThis}>
+          <img className={styles.poster} src={poster} alt={showTitle} />
+          <span className={styles.year}>{releaseYear}</span>
 
-          <h3>{item.show_title}</h3>
-          <span className={styles.mlist__item_category}>{item.category}</span>
+          <h3 className={styles.title}>{showTitle}</h3>
+          <span className={styles.category}>{category}</span>
         </a>
       </li>
     );

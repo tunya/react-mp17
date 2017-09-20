@@ -1,10 +1,10 @@
 @import "../../shared/variables";
 
-.filter_item {
+.filter {
   display: inline-block;
   margin-left: 5px;
   padding: 3px 7px;
-  background: #2e2e2e;
+  background: #2E2E2E;
   border: none;
   border-radius: 3px;
   text-transform: uppercase;
@@ -16,7 +16,7 @@
     background: #252525;
   }
 
-  &.filter_item__selected {
+  &.selected {
     background: $title-color;
   }
 }
