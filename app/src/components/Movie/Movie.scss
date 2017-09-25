@@ -1,0 +1,93 @@
+@import "../../shared/variables";
+
+.item {
+  margin: 1%;
+  padding: 1%;
+  cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  transition: border-color .3s ease;
+
+  &:hover {
+    border-color: #C7C7C7;
+  }
+
+  .poster {
+    display: block;
+    margin-bottom: 5%;
+    width: 100%;
+  }
+
+  .title {
+    margin: 0 0 3%;
+    width: calc(100% - 42px);
+    font-size: 13pt;
+    text-transform: uppercase;
+  }
+
+  .link {
+    display: block;
+    color: #505050;
+    text-decoration: none;
+  }
+}
+
+.year {
+  float: right;
+  padding: 2px 5px;
+  border: 1px solid #C7C7C7;
+  border-radius: 5px;
+  font-size: 10pt;
+}
+
+.category {
+  font-size: 9pt;
+  color: #8C8C8C;
+}
+
+.hero {
+  position: relative;
+  padding: 30px 4%;
+  overflow: hidden;
+  color: $header-font-color;
+  -webkit-font-smoothing: antialiased;
+
+  .poster {
+    float: left;
+    margin-right: 60px;
+    max-width: 230px;
+  }
+
+  .title {
+    display: inline-block;
+    margin: 15px 30px 0 0;
+    font-size: 20px;
+    color: $title-color;
+  }
+}
+
+.rate {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #A6DE6B;
+  line-height: 40px;
+  text-align: center;
+  font-size: 14pt;
+  color: #A6DE6B;
+  border-radius: 20px;
+}
+
+.time {
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.summary {
+  margin: 25px 0;
+}
+
+.crew {
+  font-size: 10pt;
+  color: #DDD;
+}
