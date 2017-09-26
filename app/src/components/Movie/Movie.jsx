@@ -1,4 +1,6 @@
+/* global window */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './Movie.scss';
 
@@ -8,8 +10,11 @@ export default class Movie extends React.Component {
     this.selectThis = this.selectThis.bind(this);
   }
 
-  selectThis(e) {
-    e.preventDefault();
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
+  selectThis() {
     this.props.selectMovie(this.props.item);
   }
 
@@ -52,13 +57,13 @@ export default class Movie extends React.Component {
     const { poster, show_title: showTitle, category, release_year: releaseYear } = this.props.item;
     return (
       <li className={styles.item}>
-        <a className={styles.link} href="#placeholder-for-future-routing" onClick={this.selectThis}>
+        <Link to={`/film/${encodeURIComponent(showTitle.toLowerCase())}`} className={styles.link} onClick={this.selectThis}>
           <img className={styles.poster} src={poster} alt={showTitle} />
           <span className={styles.year}>{releaseYear}</span>
 
           <h3 className={styles.title}>{showTitle}</h3>
           <span className={styles.category}>{category}</span>
-        </a>
+        </Link>
       </li>
     );
   }

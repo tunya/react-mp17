@@ -21,7 +21,11 @@ module.exports = {
   },
 
   devServer: {
-    historyApiFallback: true,
+    inline: true,
+    contentBase: './',
+    historyApiFallback: {
+      index: 'index.html',
+    },
     port: 3000,
   },
 

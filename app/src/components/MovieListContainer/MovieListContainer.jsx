@@ -18,23 +18,36 @@ export default class MovieListContainer extends React.Component {
 
   componentDidMount() {
     // TODO: write an API request, wrap everything in a promise
-    this.getMovies();
+    this.getMovies(this.props.query, this.props.searchBy, this.props.title);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.query !== nextProps.query || this.props.searchBy !== nextProps.searchBy) {
-      this.getMovies();
+    if (this.props.query !== nextProps.query
+      || this.props.searchBy !== nextProps.searchBy
+      || this.props.title !== nextProps.title) {
+      this.getMovies(nextProps.query, nextProps.searchBy, nextProps.title);
     }
   }
 
-  getMovies() {
+  getMovies(query, searchBy, title) {
     // TODO: write an API request, wrap everything in a promise
-    // For now it just toggles empty array vs response to make sure the state is changed
-    const movies = this.state.movies.length > 0 ? [] : response;
+    const movies = (query && searchBy) === '' ? [] : response;
+    let selected;
+    if (title) {
+      const compareTitle = title.toLowerCase();
+      movies.forEach((el) => {
+        if (el.show_title.toLowerCase() === compareTitle) {
+          selected = el;
+        }
+      });
+    }
     this.setState({
       movies,
     });
     this.props.updateCount(movies.length);
+    if (typeof selected === 'object') {
+      this.props.selectMovie(selected);
+    }
   }
 
   render() {
@@ -53,6 +66,7 @@ MovieListContainer.propTypes = {
   searchBy: PropTypes.string,
   sortBy: PropTypes.string,
   movieSelectedId: PropTypes.number,
+  title: PropTypes.string,
   selectMovie: PropTypes.func.isRequired,
   updateCount: PropTypes.func.isRequired,
 };
@@ -62,4 +76,5 @@ MovieListContainer.defaultProps = {
   searchBy: 'title',
   sortBy: 'release_year',
   movieSelectedId: null,
+  title: null,
 };

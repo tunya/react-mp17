@@ -1,16 +1,17 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from './../Header/Header';
 import StatusBar from '../StatusBar/StatusBar';
 import MovieListContainer from './../MovieListContainer/MovieListContainer';
 import Footer from './../Footer/Footer';
 import styles from './App.scss';
-import response from '../../../data/response.json';
 
-export default class App extends React.Component {
-  constructor() {
-    super();
+class App extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      movies: response,
+      movies: [],
       movieSelected: {},
       movieSelectedId: null,
       sortBy: 'release_year',
@@ -28,6 +29,23 @@ export default class App extends React.Component {
     this.updateCount = this.updateCount.bind(this);
   }
 
+  componentWillMount() {
+    const query = this.props.match.params.query || this.props.match.params.title;
+    this.setQuery(query);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const query = nextProps.match.params.query || nextProps.match.params.title;
+    this.setQuery(query);
+  }
+
+  setQuery(query) {
+    const newQuery = query ? decodeURIComponent(query) : query;
+    this.setState({
+      query: newQuery,
+    });
+  }
+
   handleSubmit(e) {
     const { target: { query: { value: query } }, target: { searchBy: { value: searchBy } } } = e;
     e.preventDefault();
@@ -35,7 +53,7 @@ export default class App extends React.Component {
       query,
       searchBy,
     });
-    return false;
+    this.props.history.push(`/search/${encodeURIComponent(query.toLowerCase())}`);
   }
 
   handleSortBy({ target: { value } }) {
@@ -45,9 +63,12 @@ export default class App extends React.Component {
   }
 
   selectMovie(item) {
+    const { show_id: showId, director } = item;
     this.setState({
       movieSelected: item,
-      movieSelectedId: item.show_id,
+      movieSelectedId: showId,
+      query: director,
+      searchBy: 'director',
     });
   }
 
@@ -55,7 +76,9 @@ export default class App extends React.Component {
     this.setState({
       movieSelected: {},
       movieSelectedId: null,
+      query: '',
     });
+    this.props.history.push('/');
   }
 
   updateCount(count) {
@@ -87,9 +110,17 @@ export default class App extends React.Component {
           movieSelectedId={this.state.movieSelectedId}
           selectMovie={this.selectMovie}
           updateCount={this.updateCount}
+          title={this.props.match.path === '/film/:title' ? decodeURIComponent(this.props.match.params.title) : null}
         />
         <Footer />
       </section>
     );
   }
 }
+
+App.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
+};
+
+export default withRouter(App);
