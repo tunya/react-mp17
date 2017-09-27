@@ -37,10 +37,16 @@ class App extends React.Component {
   componentWillReceiveProps(nextProps) {
     const query = nextProps.match.params.query || nextProps.match.params.title;
     this.setQuery(query);
+    if (!nextProps.match.params.title) {
+      this.setState({
+        movieSelected: {},
+        movieSelectedId: null,
+      });
+    }
   }
 
   setQuery(query) {
-    const newQuery = query ? decodeURIComponent(query) : query;
+    const newQuery = query ? decodeURIComponent(query) : '';
     this.setState({
       query: newQuery,
     });

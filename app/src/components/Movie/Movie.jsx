@@ -34,7 +34,7 @@ export default class Movie extends React.Component {
       <main className={styles.hero}>
         <img className={styles.poster} src={poster} alt={showTitle} />
         <section>
-          <h2 className={styles.title}>{showTitle}</h2>
+          <h1 className={styles.title}>{showTitle}</h1>
           <span className={styles.rate}>{rating}</span>
           <p>{category}</p>
           <p>
@@ -71,11 +71,7 @@ export default class Movie extends React.Component {
   render() {
     let result = null;
     if (Object.keys(this.props.item).length !== 0) {
-      if (this.props.selected) {
-        result = this.renderSelected();
-      } else {
-        result = this.renderListed();
-      }
+      result = (this.props.selected) ? this.renderSelected() : this.renderListed();
     }
     return result;
   }

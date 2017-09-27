@@ -4,7 +4,11 @@
 }
 
 .title {
+  display: block;
   margin: 20px 0;
+  font-size: 18pt;
+  font-weight: bold;
+  text-decoration: none;
   color: $title-color;
 }
 

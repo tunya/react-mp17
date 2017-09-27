@@ -22,7 +22,7 @@ export default class Search extends React.Component {
   render() {
     return (
       <div className={styles.search}>
-        <h2 className={styles.title}>Find your movie</h2>
+        <h1 className={styles.title}>Find your movie</h1>
 
         <form name="search" method="get" onSubmit={this.props.handleSubmit}>
           <input

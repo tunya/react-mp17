@@ -14,6 +14,7 @@ module.exports = {
   output: {
     path: BUILD_DIR,
     filename: '[name].js',
+    publicPath: '/',
   },
 
   resolve: {
@@ -21,11 +22,7 @@ module.exports = {
   },
 
   devServer: {
-    inline: true,
-    contentBase: './',
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    historyApiFallback: true,
     port: 3000,
   },
 

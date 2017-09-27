@@ -25,13 +25,7 @@ export default class MovieList extends React.Component {
   }
 
   render() {
-    let result;
-    if (this.props.movies.length > 0) {
-      result = this.renderList();
-    } else {
-      result = MovieList.renderEmpty();
-    }
-    return result;
+    return (this.props.movies.length > 0) ? this.renderList() : MovieList.renderEmpty();
   }
 }
 
