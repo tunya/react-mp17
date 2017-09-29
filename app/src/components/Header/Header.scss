@@ -17,26 +17,3 @@
   min-height: 220px;
   background: rgba(0, 0, 0, 0.7);
 }
-
-.search {
-  position: absolute;
-  top: 40px;
-  right: 6%;
-  background: $header-font-color;
-  border: none;
-  font-size: 10pt;
-  padding: 5px 15px;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #F2475A;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: all .3s ease;
-  -webkit-font-smoothing: antialiased;
-
-  &:hover {
-    background: #FFF;
-    color: $title-color;
-  }
-}

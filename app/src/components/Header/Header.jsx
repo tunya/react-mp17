@@ -9,9 +9,6 @@ function Header(props) {
     <header className={styles.header}>
       <div className={styles.content}>
         <Link to="/" className={styles.title}>{props.title}</Link>
-        {props.showButton ? (
-          <Link to="/" className={styles.search}>Search</Link>
-        ) : (null)}
         {props.children}
       </div>
     </header>
@@ -20,7 +17,6 @@ function Header(props) {
 
 Header.propTypes = {
   title: PropTypes.string,
-  showButton: PropTypes.bool,
   children: PropTypes.element.isRequired,
 };
 
