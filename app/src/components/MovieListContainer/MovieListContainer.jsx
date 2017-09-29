@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 
 import MovieList from './../MovieList/MovieList';
-import NotFound from './../NotFound/NotFound';
+import EmptyList from '../EmptyList/EmptyList';
 
 import response from './../../../data/response.json';
 
@@ -75,7 +75,7 @@ export default class MovieListContainer extends React.Component {
           handleSortBy={this.handleSortBy}
         />
       ) : (
-        <NotFound />
+        <EmptyList />
       )
     );
   }

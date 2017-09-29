@@ -6,7 +6,7 @@ import Header from './../Header/Header';
 import Search from './../Search/Search';
 import MovieSelected from './../MovieSelected/MovieSelected';
 import MovieListContainer from './../MovieListContainer/MovieListContainer';
-import NotFound from './../NotFound/NotFound';
+import EmptyList from '../EmptyList/EmptyList';
 import Footer from './../Footer/Footer';
 
 import styles from './App.scss';
@@ -30,7 +30,7 @@ export default class App extends React.Component {
         <Switch>
           <Route path="/search/:query" component={MovieListContainer} />
           <Route path="/film/:title" component={MovieListContainer} />
-          <Route path="/" component={NotFound} />
+          <Route path="/" component={EmptyList} />
         </Switch>
         <Footer />
       </section>

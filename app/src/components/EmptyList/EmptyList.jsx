@@ -2,7 +2,7 @@ import React from 'react';
 
 import StatusBar from './../StatusBar/StatusBar';
 
-import styles from './NotFound.scss';
+import styles from './EmptyList.scss';
 
 function NotFound() {
   return (
