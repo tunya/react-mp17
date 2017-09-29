@@ -6,11 +6,12 @@ import App from './components/App/App';
 
 ReactDOM.render((
   <Router>
-    <Switch>
-      <Route path="/search/:query" component={App} />
-      <Route path="/film/:title" component={App} />
-      <Route path="*" component={App} />
-    </Switch>
+    <div>
+      <Switch>
+        <Route path="/film/:title" component={App} />
+        <Route path="/" component={App} />
+      </Switch>
+    </div>
   </Router>
 ), document.getElementById('container'));
 
