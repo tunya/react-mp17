@@ -1,47 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import StatusBar from './../StatusBar/StatusBar';
 import Movie from './../Movie/Movie';
+
 import styles from './MovieList.scss';
 
-export default class MovieList extends React.Component {
-  static renderEmpty() {
-    return (
-      <div className={styles.empty}>No films found</div>
-    );
-  }
-
-  renderList() {
-    return (
+function MovieList(props) {
+  return (
+    <div>
+      <StatusBar
+        movieSelected={props.movieSelected}
+        count={props.movies.length}
+        sortBy={props.sortBy}
+        applySort={props.handleSortBy}
+      />
       <ul className={styles.mlist}>
-        {this.props.movies.map((elem) => {
-          let result = null;
-          if (elem.show_id !== this.props.movieSelectedId) {
-            result = <Movie key={elem.show_id} item={elem} selectMovie={this.props.selectMovie} />;
-          }
-          return result;
-        })}
+        {props.movies.map(elem => (
+          (!props.movieSelected || elem.show_id !== props.movieSelected.show_id) ? (
+            <Movie key={elem.show_id} item={elem} />
+          ) : (
+            null
+          )
+        ))}
       </ul>
-    );
-  }
-
-  render() {
-    let result;
-    if (this.props.movies.length > 0) {
-      result = this.renderList();
-    } else {
-      result = MovieList.renderEmpty();
-    }
-    return result;
-  }
+    </div>
+  );
 }
 
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object),
-  movieSelectedId: PropTypes.number,
-  selectMovie: PropTypes.func.isRequired,
+  movieSelected: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])),
+  sortBy: PropTypes.string,
+  handleSortBy: PropTypes.func,
 };
 
 MovieList.defaultProps = {
   movies: [],
-  movieSelectedId: null,
+  movieSelected: {},
+  sortBy: 'release_year',
+  handleSortBy: () => {},
 };
+
+export default MovieList;

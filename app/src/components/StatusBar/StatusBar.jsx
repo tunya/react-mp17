@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import StatusSearch from '../StatusSearch/StatusSearch';
 import StatusMovie from '../StatusMovie/StatusMovie';
+
 import styles from './StatusBar.scss';
 
 function StatusBar(props) {
@@ -27,7 +29,7 @@ function StatusBar(props) {
 
 
 StatusBar.propTypes = {
-  applySort: PropTypes.func.isRequired,
+  applySort: PropTypes.func,
   count: PropTypes.number,
   sortBy: PropTypes.string,
   sortByArr: PropTypes.arrayOf(PropTypes.object),
@@ -39,7 +41,7 @@ StatusBar.propTypes = {
 
 StatusBar.defaultProps = {
   count: 0,
-  sortBy: '',
+  sortBy: 'release_year',
   sortByArr: [{
     name: 'release date',
     val: 'release_year',
@@ -48,6 +50,7 @@ StatusBar.defaultProps = {
     val: 'rating',
   }],
   movieSelected: {},
+  applySort: () => {},
 };
 
 export default StatusBar;

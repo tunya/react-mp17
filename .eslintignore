@@ -1,0 +1,5 @@
+#Ignore build files
+app/build/*
+
+#Ignore fake data
+app/data/*

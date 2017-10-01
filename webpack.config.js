@@ -14,6 +14,7 @@ module.exports = {
   output: {
     path: BUILD_DIR,
     filename: '[name].js',
+    publicPath: '/',
   },
 
   resolve: {

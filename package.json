@@ -8,7 +8,7 @@
     "url": "git://github.com/tunya/react-mp17.git"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ./app/src/*.jsx; ./node_modules/.bin/eslint ./app/src/components/**/*.jsx; ./node_modules/.bin/eslint ./webpack.config.js; exit 0",
+    "lint": "./node_modules/.bin/eslint ./app --ext=jsx,js; exit 0",
     "start": "node app/server/index.js",
     "dev": "webpack-dev-server --open",
     "build": "webpack"
@@ -46,6 +46,8 @@
     "react-dom": "15.6.1",
     "react-redux": "5.0.6",
     "react-router": "4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-prop-types": "0.0.2",
     "redux": "3.7.2",
     "redux-form": "7.0.4"
   }

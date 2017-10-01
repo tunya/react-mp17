@@ -1,7 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import MovieList from './../MovieList/MovieList';
+import EmptyList from '../EmptyList/EmptyList';
+
 import response from './../../../data/response.json';
 
 export default class MovieListContainer extends React.Component {
@@ -13,53 +17,75 @@ export default class MovieListContainer extends React.Component {
     super();
     this.state = {
       movies: [],
+      sortBy: 'release_year',
+      movieSelected: {},
     };
+
+    this.handleSortBy = this.handleSortBy.bind(this);
   }
 
   componentDidMount() {
+    const { match: { params: { query, title } }, searchBy } = this.props;
     // TODO: write an API request, wrap everything in a promise
-    this.getMovies();
+    this.getMovies(query, searchBy, decodeURIComponent(title));
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.query !== nextProps.query || this.props.searchBy !== nextProps.searchBy) {
-      this.getMovies();
+    const { match: { params: { query, title } }, searchBy } = this.props;
+    const {
+      match: { params: { query: nextQuery, title: nextTitle } },
+      searchBy: nextSearchBy,
+    } = nextProps;
+    if (query !== nextQuery || searchBy !== nextSearchBy || title !== nextTitle) {
+      this.getMovies(nextQuery, nextSearchBy, decodeURIComponent(nextTitle));
     }
   }
 
-  getMovies() {
+  getMovies(query, searchBy, title) {
     // TODO: write an API request, wrap everything in a promise
-    // For now it just toggles empty array vs response to make sure the state is changed
-    const movies = this.state.movies.length > 0 ? [] : response;
+    const movies = (query && searchBy) === '' ? [] : response;
+    let movieSelected = {};
+    if (title) {
+      const compareTitle = title.toLowerCase();
+      movies.forEach((el) => {
+        if (el.show_title.toLowerCase() === compareTitle) {
+          movieSelected = el;
+        }
+      });
+    }
     this.setState({
       movies,
+      movieSelected,
     });
-    this.props.updateCount(movies.length);
+  }
+
+  handleSortBy({ target: { value } }) {
+    this.setState({
+      sortBy: value,
+    });
   }
 
   render() {
     return (
-      <MovieList
-        movies={MovieListContainer.sortListBy(this.state.movies, this.props.sortBy)}
-        movieSelectedId={this.props.movieSelectedId}
-        selectMovie={this.props.selectMovie}
-      />
+      this.state.movies.length ? (
+        <MovieList
+          movies={MovieListContainer.sortListBy(this.state.movies, this.state.sortBy)}
+          movieSelected={this.state.movieSelected}
+          sortBy={this.state.sortBy}
+          handleSortBy={this.handleSortBy}
+        />
+      ) : (
+        <EmptyList />
+      )
     );
   }
 }
 
 MovieListContainer.propTypes = {
-  query: PropTypes.string,
   searchBy: PropTypes.string,
-  sortBy: PropTypes.string,
-  movieSelectedId: PropTypes.number,
-  selectMovie: PropTypes.func.isRequired,
-  updateCount: PropTypes.func.isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
 };
 
 MovieListContainer.defaultProps = {
-  query: '',
   searchBy: 'title',
-  sortBy: 'release_year',
-  movieSelectedId: null,
 };

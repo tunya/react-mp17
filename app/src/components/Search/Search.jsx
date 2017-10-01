@@ -1,9 +1,13 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
+
 import FilterItem from './../FilterItem/FilterItem';
+
 import styles from './Search.scss';
 
-export default class Search extends React.Component {
+class Search extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -11,6 +15,7 @@ export default class Search extends React.Component {
     };
 
     this.setSearchBy = this.setSearchBy.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   setSearchBy({ target: { value } }) {
@@ -19,17 +24,23 @@ export default class Search extends React.Component {
     });
   }
 
+  handleSubmit(e) {
+    const { target: { query: { value: query } } } = e;
+    e.preventDefault();
+    this.props.history.push(`/search/${encodeURIComponent(query.toLowerCase())}`);
+  }
+
   render() {
     return (
       <div className={styles.search}>
-        <h2 className={styles.title}>Find your movie</h2>
+        <h1 className={styles.title}>Find your movie</h1>
 
-        <form name="search" method="get" onSubmit={this.props.handleSubmit}>
+        <form name="search" method="get" onSubmit={this.handleSubmit}>
           <input
             className={styles.query}
             type="text"
             name="query"
-            defaultValue={this.props.query}
+            defaultValue={this.props.match.params.query}
             placeholder="Ivan Vasilievich: Back to the Future"
             required
           />
@@ -56,11 +67,12 @@ export default class Search extends React.Component {
 
 Search.propTypes = {
   searchByArr: PropTypes.arrayOf(PropTypes.string),
-  query: PropTypes.string,
-  handleSubmit: PropTypes.func.isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 Search.defaultProps = {
   searchByArr: ['title', 'director'],
-  query: '',
 };
+
+export default withRouter(Search);
